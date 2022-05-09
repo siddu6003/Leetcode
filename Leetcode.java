@@ -114,6 +114,71 @@ public void sortColors(int[] nums) {
     return profit;
 }
 
+// 48 . Rotate image
+
+public void rotate(int[][] matrix) {
+    int n=matrix.length;
+    for(int i=0;i<n;i++){
+        for(int j=i;j<n;j++){
+            int temp=matrix[i][j];
+            matrix[i][j]=matrix[j][i];
+            matrix[j][i]=temp;
+        }
+    }
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n/2;j++){
+            int temp=matrix[i][n-j-1];
+            matrix[i][n-j-1]=matrix[i][j];
+            matrix[i][j]=temp;
+        }
+    }
+}
+
+// 56 . Merge Intervals - pending
+
+// 88 . Merge Sorted Array
+
+public void merge(int[] nums1, int m, int[] nums2, int n) {
+    int a[]=new int[m+n];
+    int i=0;
+    int j=0;
+    int k=0;
+    while(i!=m && j!=n){
+        if(nums1[i]>nums2[j]){
+            a[k++]=nums2[j++];
+        }else{
+            a[k++]=nums1[i++];
+        }
+    }
+    while(i<m){
+        a[k++]=nums1[i++];
+    }
+    while(j<n){
+        a[k++]=nums2[j++];
+    }
+    int p=0;
+    for(int z : a){
+        nums1[p++]=z;
+    }
+}
+
+// 287. Find the Duplicate Number 
+
+public int findDuplicate(int[] nums) {
+    int x=0;
+    Set<Integer> s=new HashSet<>();
+    for(int i=0;i<nums.length;i++){
+        if(!s.contains(nums[i])){
+            s.add(nums[i]);
+        }else{
+            x=nums[i];
+            break;
+        }
+    }
+    return x;
+}
+
+
     public static void main(String args[]){
         
     }
