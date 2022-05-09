@@ -178,8 +178,94 @@ public int findDuplicate(int[] nums) {
     return x;
 }
 
+// 74 . Search a 2d matrix
 
-    public static void main(String args[]){
+// binary search
+public boolean searchMatrix(int[][] matrix, int target) {
+    int m = matrix.length;
+    int n = matrix[0].length;
+    int low = 0;
+    int high = m*n - 1;
+    
+    while(low <= high) {
+        int mid = low + (high - low) / 2; 
+        int row = mid / n;
+        int col = mid % n;       
+        if(matrix[row][col] == target) {
+            return true;
+        } else if(matrix[row][col]  > target) {
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+         
+    }
+    return false;
+}
+
+// 50 . Pow(x, n)
+
+public double myPow(double x, int n) {
+    double ans=1;
+    while(n-->0){
+        ans=ans*x;
+    }
+    return ans;
+}
+
+// 169 . Majority Element
+
+public int majorityElement(int[] nums) {
+    Map<Integer,Integer> m=new HashMap<>();
+    for(int i : nums){
+        if(!m.containsKey(i)){
+            m.put(i,1);
+        }else{
+            m.put(i,m.get(i)+1);
+        }
+    }
+    int p=0;
+    for(Map.Entry k : m.entrySet()){
+        int x=(int) k.getValue();
+        if(x>nums.length/2){
+            p=(int) k.getKey();
+        }
+    }
+    return p;
+}
+
+// 229 . Majority Element II
+
+public List<Integer> majorityElement2(int[] nums) {
+    List<Integer> l=new ArrayList<>();
+    Map<Integer,Integer> m=new HashMap<>();
+    for(int i : nums){
+        if(!m.containsKey(i)){
+            m.put(i,1);
+        }else{
+            m.put(i,m.get(i)+1);
+        }
+    }
+    int p=0;
+    for(Map.Entry k : m.entrySet()){
+        int x=(int) k.getValue();
+        if(x>nums.length/3){
+            p=(int) k.getKey();
+            l.add(p);
+        }
+    }
+    return l;
+}
+
+
+// 62 . Unique Paths - pending
+
+// 493 . Reverse Pairs - pending
+
+
+
+
+public static void main(String args[]){
         
     }
 }
