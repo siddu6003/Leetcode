@@ -522,7 +522,45 @@ public ListNode detectCycle(ListNode head) {
  return null;
 }
 
-// Day 7 pending 
+// Day 7 
+
+// 26 . Remove Duplicates from Sorted Array
+
+public int removeDuplicates(int[] nums) {
+    Set<Integer> s=new HashSet<>();
+    for(int i : nums){
+        s.add(i);
+    }
+    return s.size();
+}
+
+// 485. Max Consecutive Ones
+
+public int findMaxConsecutiveOnes(int[] nums) {
+    int count=0;
+    int max=0;
+    for(int i=0;i<nums.length;i++){
+        if(nums[i]==1) count++;
+        else{
+            max=Math.max(count,max);
+            count=0;
+        }
+    }
+    return Math.max(max,count);
+}
+
+// Day 8 - pending
+
+// Day 9 - pending
+
+// Day 10 - pending
+
+// Day 11 
+
+
+// 540 . Single Element in a Sorted Array
+
+
 
 
 
