@@ -553,9 +553,230 @@ public int findMaxConsecutiveOnes(int[] nums) {
 
 // Day 9 - pending
 
-// Day 10 - pending
+// Day 10 
+
+//  46. Permutations
+
+public static void help(int nums[],List<Integer> l,List<List<Integer>> ans,int a[]){
+    if(l.size()==nums.length){
+        ans.add(new ArrayList<>(l));
+        return;
+    }
+    
+    for(int i=0;i<nums.length;i++){
+        if(a[i]==0){
+            a[i]=1;
+            l.add(nums[i]);
+            help(nums,l,ans,a);
+            l.remove(l.size()-1);
+            a[i]=0;
+        }
+    }
+}
+public List<List<Integer>> permute(int[] nums) {
+    List<List<Integer>> ans=new ArrayList<>();
+    List<Integer> l=new ArrayList<>();
+    int a[]=new int[nums.length];
+    Arrays.fill(a,0);
+    help(nums,l,ans,a);
+    return ans;
+}
 
 // Day 11 
+
+// Day 12
+
+// Day 13
+
+// 20. Valid Parentheses
+
+public boolean isValid(String s) {
+    Stack<Character> st = new Stack<>();
+    for(char c: s.toCharArray()){
+        if(c == '(' || c == '{' || c == '['){
+            st.push(c);
+        }
+        else if(c == ')' && !st.isEmpty() && st.peek() == '('){
+            st.pop();
+        }
+        else if(c == ']' && !st.isEmpty() && st.peek() == '['){
+            st.pop();
+        }
+        else if(c == '}' && !st.isEmpty() && st.peek() == '{'){
+            st.pop();
+        }
+        else{
+            return false;
+        }
+    }
+    return st.isEmpty();
+}
+
+// Day 14
+
+// Day 15
+
+// Day 16
+
+// Day 17
+
+// 94 . Binary Tree Inorder Traversal
+
+public class TreeNode {
+     int val;
+     TreeNode left;
+     TreeNode right;
+     TreeNode() {}
+     TreeNode(int val) { this.val = val; }
+    TreeNode(int val, TreeNode left, TreeNode right) {
+      this.val = val;
+      this.left = left;
+      this.right = right;
+        }
+    }
+
+List<Integer> l=new ArrayList<Integer>();
+public List<Integer> inorderTraversal(TreeNode root) {
+    if(root==null) return l;
+    else{
+        inorderTraversal(root.left);
+        l.add(root.val);
+        inorderTraversal(root.right);
+    }
+    return l;
+}
+
+
+
+// 144 . Binary Tree Postorder Traversal
+
+    public List<Integer> postorderTraversal(TreeNode root) {
+        if(root==null) return l;
+        else{
+            postorderTraversal(root.left);
+            postorderTraversal(root.right);
+            l.add(root.val);
+        }
+        return l;
+    }
+
+// 145 . Binary Tree Preorder Traversal
+
+public List<Integer> preorderTraversal(TreeNode root) {
+    if(root==null) return l;
+    else{
+        l.add(root.val);
+        preorderTraversal(root.left);
+         preorderTraversal(root.right);
+    }
+    return l;
+}
+
+// Day 18
+
+// 102 . Binary Tree Level Order Traversal
+
+public List<List<Integer>> levelOrder(TreeNode root) {
+    List<List<Integer>> l2=new ArrayList<>();
+    if(root==null) return l2; 
+    Queue<TreeNode> q=new LinkedList<>();
+    q.add(root);
+    while(!q.isEmpty()){
+        int size=q.size();
+        List<Integer> l=new ArrayList<>();
+        for(int i=0;i<size;i++){
+            TreeNode x=q.poll();
+            l.add(x.val);
+            if(x.left!=null) q.add(x.left);
+            if(x.right!=null) q.add(x.right);
+        }
+        l2.add(l);
+    }
+    return l2;
+}
+
+// 104 . Maximum Depth of Binary Tree
+
+public int maxDepth(TreeNode root) {
+    if(root==null) return 0;
+    return 1+Math.max(maxDepth(root.left),maxDepth(root.right));
+}
+
+// 110. Balanced Binary Tree
+
+ public int depth(TreeNode root){
+        if(root==null) return 0;
+        return 1+Math.max(depth(root.right),depth(root.left));
+    }
+    public boolean isBalanced(TreeNode root) {
+        if(root==null) return true;
+        int left=depth(root.left);
+        int right=depth(root.right);
+        return Math.abs(left-right)<2 && isBalanced(root.left) && isBalanced(root.right);
+    }
+
+// 100 . Same Tree
+
+public boolean isSameTree(TreeNode p, TreeNode q) {
+    if(p == null && q == null){return true;}
+    if(p == null || q == null){return false;}
+    return p.val == q.val 
+        && isSameTree(p.right, q.right) 
+        && isSameTree(p.left, q.left);
+}
+
+// 103 . zigzag level order traversal
+
+public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+    List<List<Integer>> l=new ArrayList<>();
+    if(root==null) return l;
+    Queue<TreeNode> q=new LinkedList<>();
+    q.add(root);
+    int level=1;
+    while(!q.isEmpty()){
+        int size=q.size();
+        List<Integer> l2=new ArrayList<>();
+        for(int i=0;i<size;i++){
+            TreeNode x=q.poll();
+            if(level%2==0){
+               l2.add(0,x.val);
+            }else{
+               l2.add(x.val);
+            }
+            if(x.left!=null){
+                q.add(x.left);
+             }
+             if(x.right!=null){
+               q.add(x.right);  
+             } 
+          }
+        l.add(l2);
+        level++;
+    }
+    return l;
+}
+
+// Day 19 
+
+// 114 . Flatten Binary Tree to Linked List
+
+public void preorder(TreeNode root,List<Integer> l){
+    if(root==null) return;
+    l.add(root.val);
+    preorder(root.left,l);
+    preorder(root.right,l);
+}
+public void flatten(TreeNode root) {
+    List<Integer> l=new ArrayList<>();
+    preorder(root,l);
+    TreeNode n=root;
+    for(int i=1;i<l.size();i++){
+        TreeNode x=new TreeNode(l.get(i));
+        n.left=null;
+        n.right=x;
+        n=n.right;
+    }
+}
 
 
 // 540 . Single Element in a Sorted Array
